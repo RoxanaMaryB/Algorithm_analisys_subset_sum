@@ -1,0 +1,16 @@
+num_elements,target,dp_output,greedy_output
+3,6,True,True
+4,10,True,True
+4,10,True,True
+5,15,True,True
+6,21,True,True
+50,2943,True,False
+100,5679,True,False
+150,7258,True,False
+200,10630,True,True
+250,13234,True,True
+300,16290,True,True
+350,16674,True,True
+400,20449,True,True
+450,22058,True,True
+500,26017,True,True

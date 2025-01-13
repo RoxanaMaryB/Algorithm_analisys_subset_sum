@@ -1,0 +1,16 @@
+num_elements,target,dp_output,greedy_output
+3,7,False,False
+4,11,False,False
+4,11,False,False
+5,16,False,False
+6,22,False,False
+50,13020,False,False
+100,23916,False,False
+150,37132,False,False
+200,49131,False,False
+250,62908,False,False
+300,77156,False,False
+350,90492,False,False
+400,100978,False,False
+450,112402,False,False
+500,124105,False,False
