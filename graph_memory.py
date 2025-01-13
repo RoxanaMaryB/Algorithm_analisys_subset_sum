@@ -39,17 +39,13 @@ def plot_memory_vs_num_elements(data):
     for algorithm, color in zip(algorithms, colors):
         memory = data[f'{algorithm.lower()}_memory']
 
-        # Sort data by number of elements
         sorted_data = sorted(zip(data['num_elements'], memory))
         num_elements, memory = zip(*sorted_data)
 
-        # Average duplicates
         num_elements, memory = average_duplicates(num_elements, memory)
 
-        # Plot data points
         plt.scatter(num_elements, memory, label=f'{algorithm} Memory', s=50, color=color)
 
-        # Polynomial regression for smooth curve
         poly_fit = np.polyfit(num_elements, memory, 3)
         poly_fit_fn = np.poly1d(poly_fit)
         num_elements_smooth = np.linspace(min(num_elements), max(num_elements), 300)
@@ -58,7 +54,7 @@ def plot_memory_vs_num_elements(data):
 
     plt.xlabel('Number of Elements')
     plt.ylabel('Memory (MiB)')
-    plt.yscale('log')  # Use logarithmic scale for better visualization
+    plt.yscale('log')
     plt.title('Number of Elements vs. Memory for Different Algorithms')
     plt.legend()
     plt.grid(True)

@@ -40,18 +40,14 @@ def plot_time_vs_num_elements(data):
     for algorithm, color in zip(algorithms, colors):
         times = data[f'{algorithm.lower()}_time']
 
-        # Sort data by number of elements
         sorted_data = sorted(zip(data['num_elements'], times))
         num_elements, times = zip(*sorted_data)
 
-        # Average duplicates
         num_elements, times = average_duplicates(num_elements, times)
 
-        # Plot data points
         plt.scatter(num_elements, times, label=f'{algorithm} Time', s=50, color=color)
 
         if algorithm == 'Backtracking':
-            # Transform data for exponential-like spline fit
             log_times = np.log(times)
             num_elements_smooth = np.linspace(min(num_elements), max(num_elements), 300)
             spline = make_interp_spline(num_elements, log_times, k=3)
@@ -59,7 +55,6 @@ def plot_time_vs_num_elements(data):
             times_smooth = np.exp(log_times_smooth)
             plt.plot(num_elements_smooth, times_smooth, color=color, label=f'{algorithm} Fit')
         else:
-            # Polynomial regression for smooth curve
             poly_fit = np.polyfit(num_elements, times, 3)
             poly_fit_fn = np.poly1d(poly_fit)
             num_elements_smooth = np.linspace(min(num_elements), max(num_elements), 300)
@@ -68,7 +63,7 @@ def plot_time_vs_num_elements(data):
 
     plt.xlabel('Number of Elements')
     plt.ylabel('Time (seconds)')
-    plt.yscale('log')  # Use logarithmic scale for better visualization
+    plt.yscale('log')
     plt.title('Number of Elements vs. Time for Different Algorithms')
     plt.legend()
     plt.grid(True)

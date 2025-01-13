@@ -16,31 +16,25 @@ def read_test_cases(folder_path):
     return test_cases
 
 def process_folder(folder_name):
-    # Variables to accumulate total times and memory usage
     dp_time_total = 0
     greedy_time_total = 0
     dp_memory_total = 0
     greedy_memory_total = 0
 
-    # Variables to count successful and unsuccessful attempts
     dp_found = 0
     dp_not_found = 0
     greedy_found = 0
     greedy_not_found = 0
 
-    # Read test cases from folder
     test_cases = read_test_cases(folder_name)
 
-    # Lists to store results
     metrics_results = []
     outputs_results = []
 
-    # Test each algorithm with the generated test cases
     for i, (arr, target) in enumerate(test_cases):
         try:
             print(f"Processing test case {i+1}/{len(test_cases)}: {arr} with target {target}")
 
-            # Test dynamic programming
             subset_dp, dp_time, dp_memory = measure_time_and_memory(subset_sum_dp, arr, target)
             dp_time_total += dp_time
             dp_memory_total += dp_memory
@@ -50,7 +44,6 @@ def process_folder(folder_name):
                 dp_not_found += 1
             print(f"DP completed for test case {i+1}/{len(test_cases)}")
 
-            # Test greedy
             subset_greedy, greedy_time, greedy_memory = measure_time_and_memory(subset_sum_greedy, arr, target)
             greedy_time_total += greedy_time
             greedy_memory_total += greedy_memory
@@ -60,13 +53,11 @@ def process_folder(folder_name):
                 greedy_not_found += 1
             print(f"Greedy completed for test case {i+1}/{len(test_cases)}")
 
-            # Check for discrepancies in outputs
             if subset_dp != subset_greedy:
                 print(f"Discrepancy found for test case {arr} with target {target}:")
                 print(f"DP output: {subset_dp}")
                 print(f"Greedy output: {subset_greedy}")
 
-            # Append results for this test case
             metrics_results.append({
                 'num_elements': len(arr),
                 'target': target,
@@ -85,7 +76,6 @@ def process_folder(folder_name):
         except Exception as e:
             print(f"Error processing test case {arr} with target {target}: {e}")
 
-    # Save metrics results to CSV file
     metrics_csv_file_name = f'{folder_name}_metrics_results.csv'
     with open(metrics_csv_file_name, 'w', newline='') as csvfile:
         fieldnames = ['num_elements', 'target', 'dp_time', 'dp_memory', 'greedy_time', 'greedy_memory']
@@ -97,7 +87,6 @@ def process_folder(folder_name):
 
     print(f"Metrics results saved to {metrics_csv_file_name}")
 
-    # Save outputs results to CSV file
     outputs_csv_file_name = f'{folder_name}_outputs_results.csv'
     with open(outputs_csv_file_name, 'w', newline='') as csvfile:
         fieldnames = ['num_elements', 'target', 'dp_output', 'greedy_output']
@@ -110,6 +99,6 @@ def process_folder(folder_name):
     print(f"Outputs results saved to {outputs_csv_file_name}")
 
 if __name__ == "__main__":
-    folders = ['subset_exists', 'subset_not_exists']  # Process all folders
+    folders = ['subset_exists', 'subset_not_exists']
     for folder in folders:
         process_folder(folder)

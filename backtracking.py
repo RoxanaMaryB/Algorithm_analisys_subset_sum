@@ -3,9 +3,7 @@ def backtracking(S, index, target):
         return target == 0
     if target < 0:
         return False
-    # Try including the current element
     include = backtracking(S, index + 1, target - S[index])
-    # Try excluding the current element
     exclude = backtracking(S, index + 1, target)
     return include or exclude
 
